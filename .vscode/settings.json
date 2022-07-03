@@ -2,5 +2,6 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "API/lib/postgresql-42.3.5.jar"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
