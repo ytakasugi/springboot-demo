@@ -23,10 +23,14 @@ public class BoardController {
     }
   
     @PostMapping("/board")
-    public String postComment(
+    public ModelAndView postComment(
         @Validated @ModelAttribute CommentForm comment, 
-        BindingResult bindingResult
-    ) {
-        return "redirect:/board";
+        BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("/board");
+            modelAndView.addObject("commentForm", comment);
+            return modelAndView;
+        }
+        return new ModelAndView("redirect:/board");
     }
 }
