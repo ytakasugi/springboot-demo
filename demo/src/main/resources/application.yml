@@ -13,5 +13,5 @@ spring:
       driver-class-name: org.h2.Driver
   sql:
     init:
-      schema-locations: classpath:h2/schema.sqls
+      schema-locations: classpath:h2/schema.sql
       mode: embedded 

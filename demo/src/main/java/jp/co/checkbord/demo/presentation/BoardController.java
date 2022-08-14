@@ -1,6 +1,7 @@
 package jp.co.checkbord.demo.presentation;
 
 import jp.co.checkbord.demo.application.form.CommentForm;
+import jp.co.checkbord.demo.application.usecase.UserCommentUseCase;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,22 +16,26 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
-    @GetMapping("/board")
-    public ModelAndView viewBoard(ModelAndView modelAndView){
-        modelAndView.setViewName("board");
-        modelAndView.addObject("commentForm", new CommentForm());
-        return modelAndView;
+  private final UserCommentUseCase userCommentUseCase;
+
+  @GetMapping("/board")
+  public ModelAndView viewBoard(ModelAndView modelAndView){
+    modelAndView.setViewName("board");
+    modelAndView.addObject("commentForm", new CommentForm());
+    return modelAndView;
+  }
+
+  @PostMapping("/board")
+  public ModelAndView postComment(
+      @Validated @ModelAttribute CommentForm comment,
+      BindingResult bindingResult) {
+    if(bindingResult.hasErrors()) {
+      ModelAndView modelAndView = new ModelAndView("/board");
+      modelAndView.addObject("commentForm", comment);
+      return modelAndView;
     }
-  
-    @PostMapping("/board")
-    public ModelAndView postComment(
-        @Validated @ModelAttribute CommentForm comment, 
-        BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            ModelAndView modelAndView = new ModelAndView("/board");
-            modelAndView.addObject("commentForm", comment);
-            return modelAndView;
-        }
-        return new ModelAndView("redirect:/board");
-    }
+    // エラーが無ければ保存する
+    userCommentUseCase.write(comment);
+    return new ModelAndView("redirect:/board");
+  }
 }
