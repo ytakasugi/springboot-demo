@@ -7,8 +7,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-//import java.util.Random;
-
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class UserComment {
@@ -23,19 +21,5 @@ public class UserComment {
             Comment.form(comment)
         );
     }
-    /*
-    public Name getName() {
-        if(!name.equals("!omikuji")) return name;
     
-        int random = new Random().nextInt(3);
-    
-        switch (random) {
-            case 0:
-                return Name.from("大吉");
-            case 1:
-                return Name.from("中吉");
-            default:
-                return Name.from("小吉");
-        }
-    */
 }
