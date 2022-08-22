@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import jp.co.checkbord.demo.application.form.CommentForm;
 import jp.co.checkbord.demo.domain.model.UserComment;
 import jp.co.checkbord.demo.domain.model.UserCommentRepository;
+import jp.co.checkbord.demo.domain.model.UserComments;
 
 @Service
 @RequiredArgsConstructor
@@ -19,5 +20,9 @@ public class UserCommentUseCase {
             commentForm.getComment()
         );
         repository.save(userComment);
+    }
+    
+    public UserComments read(){
+        return repository.select();
     }
 }

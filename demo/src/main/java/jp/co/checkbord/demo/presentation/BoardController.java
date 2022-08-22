@@ -2,6 +2,7 @@ package jp.co.checkbord.demo.presentation;
 
 import jp.co.checkbord.demo.application.form.CommentForm;
 import jp.co.checkbord.demo.application.usecase.UserCommentUseCase;
+import jp.co.checkbord.demo.domain.model.UserComments;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,9 +21,12 @@ public class BoardController {
 
   @GetMapping("/board")
   public ModelAndView viewBoard(ModelAndView modelAndView){
-    modelAndView.setViewName("board");
-    modelAndView.addObject("commentForm", new CommentForm());
-    return modelAndView;
+      UserComments userComments = userCommentUseCase.read();
+      modelAndView.addObject("comments", userComments.getValues());
+    
+      modelAndView.setViewName("board");
+      modelAndView.addObject("commentForm", new CommentForm());
+      return modelAndView;
   }
 
   @PostMapping("/board")
