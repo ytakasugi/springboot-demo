@@ -28,6 +28,7 @@ public class UserComments {
     @Getter
     public static class UserComment {
         private final int id;
+        private final UserId userId;
         private final Name name;
         private final MailAddress mailAddress;
         private final Comment comment;
@@ -35,6 +36,7 @@ public class UserComments {
 
         public static UserComment from(
             int id,
+            String userId,
             String name,
             String mailAddress,
             String comment,
@@ -42,6 +44,7 @@ public class UserComments {
         ) {
             return new UserComment(
                 id,
+                UserId.from(userId),
                 Name.from(name), 
                 MailAddress.from(mailAddress), 
                 Comment.form(comment), 

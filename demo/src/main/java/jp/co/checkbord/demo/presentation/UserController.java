@@ -59,4 +59,12 @@ public class UserController {
         }
         return new ModelAndView("redirect:/board");
     }
+
+    @GetMapping
+    public ModelAndView loginPage(ModelAndView modelAndView) {
+        modelAndView.setViewName("user/login");;
+        modelAndView.addObject("userForm", new UserForm());
+
+        return modelAndView;
+    }
 }

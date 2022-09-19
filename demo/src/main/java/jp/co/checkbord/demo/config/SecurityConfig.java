@@ -15,12 +15,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig  {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
+        http.authorizeRequests()
             .antMatchers("/h2-console/**").hasRole("ADMIN")
             .antMatchers("/board").hasRole("USER")
-            .and().formLogin()
-                .loginPage("/user").permitAll()
-                .defaultSuccessUrl("/boadr")
+                .and().formLogin()
+                .loginPage("/user").permitAll() // ログインページのカスタマイズ
+                .defaultSuccessUrl("/board") // ログイン認証ページの要求, ログイン成功後デフォルト画面の設定
             .and().logout()
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/user")
